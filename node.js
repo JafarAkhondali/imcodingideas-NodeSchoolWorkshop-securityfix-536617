@@ -11,6 +11,11 @@ const port = process.argv[2] || 8888;
 
 const server = http.createServer(function (request, response) {
   
+    if (path.normalize(decodeURI(uri)) !== decodeURI(uri)) {
+        response.statusCode = 403;
+        response.end();
+        return;
+    }
   const uri = url.parse(request.url).pathname;
   let filename = path.join(process.cwd(), uri);
   
